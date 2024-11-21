@@ -8,7 +8,7 @@
   "attributes": {
     "chatSrc": {
       "type": "string",
-      "default": "https://chat.livelyplant-e406dec0.eastus.azurecontainerapps.io"
+      "default": "https://chat.livelyplant-e406dec0.eastus.azurecontainer.io"
     },
     "unitId": {
       "type": "string",

@@ -1,1 +1,10 @@
-(()=>{"use strict";const e=window.wp.blocks,t=window.wp.blockEditor,s=window.wp.components,i=window.wp.element,l=window.ReactJSXRuntime,o=JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"eddolearning/slides","version":"0.0.6","title":"Eddo Learning Course Slides","category":"widgets","icon":"slides","description":"A block for embedding Eddo Learning course presentation slides. Supports Google Slides.","example":{},"supports":{"html":false},"textdomain":"eddo-learning-course-tools","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"slidesSrc":{"type":"string","default":""},"startSlide":{"type":"string","default":"1"}}}');(0,e.registerBlockType)(o.name,{...o,edit:function({attributes:e,setAttributes:o}){const{slidesSrc:n,startSlide:r}=e,d=(0,t.useBlockProps)();return(0,l.jsxs)(i.Fragment,{children:[(0,l.jsx)(t.InspectorControls,{children:(0,l.jsxs)(s.PanelBody,{title:"Slides Settings",children:[(0,l.jsx)(s.TextControl,{label:"Slides Source URL",value:n,onChange:e=>o({slidesSrc:e}),help:"For Google Slides, paste the presentation URL"}),(0,l.jsx)(s.TextControl,{label:"Starting Slide",value:r,onChange:e=>{(e=>/^[1-9]\d*$/.test(e)||/^[A-Z]{1,2}$/i.test(e))(e)&&o({startSlide:e.toUpperCase()})},help:"Enter a number (1, 2, ...) or letter (A, B, AA, ...)"})]})}),(0,l.jsx)("div",{...d,children:n?(0,l.jsx)("iframe",{src:(()=>{if(!n)return"";let e=n;if(e.includes("docs.google.com/presentation")){const t=e.match(/\/d\/([a-zA-Z0-9-_]+)/);t&&t[1]&&(e=`https://docs.google.com/presentation/d/${t[1]}/embed`)}if(e.includes("docs.google.com/presentation")){const t=e.includes("?")?"&":"?";e=`${e}${t}start=false&loop=false&delayms=3000`,"1"!==r&&(e+=`&slide=${r}`)}else{const t=e.includes("?")?"&":"?";e=`${e}${t}start=${encodeURIComponent(r)}`}return e})(),width:"100%",height:"600",frameBorder:"0",allowFullScreen:"true",mozallowfullscreen:"true",webkitallowfullscreen:"true",title:"Presentation Slides"}):(0,l.jsx)("p",{children:"Please enter a slides URL in the block settings."})})]})}})})();
+import { registerBlockType } from '@wordpress/blocks';
+import Edit from './edit';
+import Save from './save';
+import metadata from './block.json';
+
+registerBlockType(metadata.name, {
+    ...metadata,
+    edit: Edit,
+    save: Save,
+});

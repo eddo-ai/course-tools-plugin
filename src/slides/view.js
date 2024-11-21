@@ -1,1 +1,0 @@
-console.log("Slides block view script loaded");

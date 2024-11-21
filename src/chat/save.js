@@ -11,7 +11,6 @@ export default function Save({ attributes }) {
             url.searchParams.set('embed', 'true');
             return url.toString();
         } catch (e) {
-            console.error('Error in save component URL construction:', e);
             return baseUrl;
         }
     };
@@ -31,8 +30,6 @@ export default function Save({ attributes }) {
                             border: 'none'
                         }}
                         title="Chat Interface"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
                     ></iframe>
                 </div>
             )}

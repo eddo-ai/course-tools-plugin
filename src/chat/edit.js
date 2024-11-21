@@ -1,5 +1,5 @@
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, TextControl, Notice } from '@wordpress/components';
+import { PanelBody, TextControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 
@@ -7,7 +7,7 @@ export default function Edit({ attributes, setAttributes }) {
     const blockProps = useBlockProps();
     const { chatSrc, unitId } = attributes;
     
-    const defaultChatUrl = 'https://chat.livelyplant-e406dec0.eastus.azurecontainerapps.io';
+    const defaultChatUrl = 'https://chat.livelyplant-e406dec0.eastus.azurecontainer.io';
     
     // Get the current post title
     const postTitle = useSelect(select => {
@@ -26,7 +26,6 @@ export default function Edit({ attributes, setAttributes }) {
                 url.searchParams.set('unit_id', encodeURIComponent(unitId));
             }
             url.searchParams.set('embed', 'true');
-            console.log('Constructed URL:', url.toString()); // Debug log
             return url.toString();
         } catch (e) {
             console.error('Error constructing URL:', e);
@@ -76,13 +75,7 @@ export default function Edit({ attributes, setAttributes }) {
                                 border: 'none'
                             }}
                             title="Chat Interface"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
                         ></iframe>
-                        {/* Debug display */}
-                        <div style={{ position: 'absolute', bottom: 0, left: 0, background: 'rgba(0,0,0,0.7)', color: 'white', padding: '5px', fontSize: '12px' }}>
-                            URL: {iframeUrl}
-                        </div>
                     </div>
                 )}
             </div>
