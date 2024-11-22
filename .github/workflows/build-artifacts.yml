@@ -52,10 +52,7 @@ jobs:
           php-version: '7.4'
 
       - name: Install Composer dependencies
-        run: |
-          composer install --no-dev --optimize-autoloader
-          # Ensure vendor directory exists in the final build
-          git add -f vendor/
+        run: composer install --no-dev --optimize-autoloader
 
       - name: Bump version
         run: pnpm version:patch
@@ -65,9 +62,6 @@ jobs:
 
       - name: Generate plugin zip
         run: pnpm plugin-zip
-
-      - name: Force add build directory
-        run: git add -f build/
 
       - name: Commit changes
         run: |
