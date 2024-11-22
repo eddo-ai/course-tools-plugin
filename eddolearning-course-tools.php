@@ -19,6 +19,24 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Autoload dependencies
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Initialize the update checker
+function initialize_eddolearning_updates() {
+    if (class_exists('YahnisElsts\PluginUpdateChecker\v5\PucFactory')) {
+        $updateChecker = YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
+            'https://github.com/hey-aw/eddo-learning-course-tools',
+            __FILE__,
+            'eddolearning-course-tools'
+        );
+
+        // Look for releases in GitHub
+        $updateChecker->getVcsApi()->enableReleaseAssets();
+    }
+}
+add_action('init', 'initialize_eddolearning_updates');
+
 /**
  * Registers the blocks and their assets.
  */

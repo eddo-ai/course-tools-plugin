@@ -28,5 +28,7 @@ phpContent = phpContent.replace(
 // Write back to PHP file
 fs.writeFileSync(phpPath, phpContent);
 
+// Write version to GitHub Actions environment file
+fs.appendFileSync(process.env.GITHUB_ENV, `NEW_VERSION=${newVersion}\n`);
+
 console.log(`Version bumped to ${newVersion} in both package.json and PHP file`);
-console.log(`::set-env name=NEW_VERSION::${newVersion}`); 
