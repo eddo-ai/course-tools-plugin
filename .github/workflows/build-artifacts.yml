@@ -63,11 +63,14 @@ jobs:
       - name: Generate plugin zip
         run: pnpm plugin-zip
 
+      - name: Force add build directory
+        run: git add -f build/
+
       - name: Commit changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add build/ package.json eddolearning-course-tools.zip
+          git add package.json eddolearning-course-tools.zip eddolearning-course-tools.php
           git commit -m "chore: update build artifacts and bump version" || echo "No changes to commit"
           git push
 
