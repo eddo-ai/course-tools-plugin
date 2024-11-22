@@ -28,4 +28,5 @@ phpContent = phpContent.replace(
 // Write back to PHP file
 fs.writeFileSync(phpPath, phpContent);
 
-console.log(`Version bumped to ${newVersion} in both package.json and PHP file`); 
+console.log(`Version bumped to ${newVersion} in both package.json and PHP file`);
+console.log(`::set-env name=NEW_VERSION::${newVersion}`); 
