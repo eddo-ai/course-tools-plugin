@@ -1,19 +1,30 @@
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, TextControl } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
+import { useSelect, useDispatch } from '@wordpress/data';
+import { store as preferencesStore } from '@wordpress/preferences';
 
 export default function Edit({ attributes, setAttributes, isSelected }) {
     const blockProps = useBlockProps();
     const { chatSrc, unitId } = attributes;
     
-    const defaultChatUrl = 'https://chat.livelyplant-e406dec0.eastus.azurecontainerapps.io';
+    // Get the saved default URL from preferences
+    const savedDefaultUrl = useSelect(select => 
+        select(preferencesStore).get('eddolearning-course-tools', 'defaultChatUrl')
+    , []);
+    
+    const { set: setPreference } = useDispatch(preferencesStore);
+    
+    // Use saved default if available, otherwise use hardcoded default
+    const defaultChatUrl = savedDefaultUrl || 'https://chat.livelyplant-e406dec0.eastus.azurecontainerapps.io';
     
     // Get the current post title
     const postTitle = useSelect(select => {
-        const currentPost = select('core/editor').getCurrentPost();
-        return currentPost?.title || '';
+        const { getEditedPostAttribute } = select('core/editor');
+        return getEditedPostAttribute('title') || '';
     }, []);
+
+    // Log the title to verify it's working
+    console.log('Current post title:', postTitle);
 
     // Construct the full URL with query parameters
     const getFullUrl = (baseUrl) => {
@@ -38,7 +49,20 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
         setAttributes({ chatSrc: defaultChatUrl });
     }
 
+    const handleUrlChange = (value) => {
+        setAttributes({ chatSrc: value });
+        // Save the new URL as the default if it's valid
+        try {
+            new URL(value);
+            setPreference('eddolearning-course-tools', 'defaultChatUrl', value);
+        } catch (e) {
+            // Don't save invalid URLs as default
+            console.warn('Invalid URL not saved as default:', value);
+        }
+    };
+
     const iframeUrl = getFullUrl(chatSrc);
+    console.log('Final iframe URL:', iframeUrl);
 
     return (
         <>
@@ -50,7 +74,7 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
                     <TextControl
                         label="Chat URL"
                         value={chatSrc}
-                        onChange={(value) => setAttributes({ chatSrc: value })}
+                        onChange={handleUrlChange}
                         help="The base URL for the chat interface"
                     />
                     <TextControl

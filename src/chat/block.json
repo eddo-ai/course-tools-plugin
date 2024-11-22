@@ -20,7 +20,6 @@
   },
   "textdomain": "eddolearning",
   "editorScript": "file:./index.js",
-  "viewScript": "file:./view.js",
   "dependencies": [
     "wp-blocks",
     "wp-block-editor",
