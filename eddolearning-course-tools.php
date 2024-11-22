@@ -20,13 +20,21 @@ if (!defined('ABSPATH')) {
 }
 
 // Autoload dependencies
-require_once __DIR__ . '/vendor/autoload.php';
+$autoloader = __DIR__ . '/vendor/autoload.php';
+if (file_exists($autoloader)) {
+    require_once $autoloader;
+}
 
 // Initialize the update checker
 function initialize_eddolearning_updates() {
+    $autoloader = __DIR__ . '/vendor/autoload.php';
+    if (!file_exists($autoloader)) {
+        return;
+    }
+
     if (class_exists('\YahnisElsts\PluginUpdateChecker\v5\PucFactory')) {
         $updateChecker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
-            'https://github.com/hey-aw/eddo-learning-course-tools',
+            'https://github.com/eddo-ai/wp-course-tools-plugin',
             __FILE__,
             'eddolearning-course-tools'
         );
