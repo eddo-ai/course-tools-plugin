@@ -2,7 +2,6 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "eddolearning/slides",
-  "version": "0.0.6",
   "title": "Eddo Learning Course Slides",
   "category": "widgets",
   "icon": "slides",
@@ -11,7 +10,7 @@
   "supports": {
     "html": false
   },
-  "textdomain": "eddo-learning-course-tools",
+  "textdomain": "eddolearning",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",

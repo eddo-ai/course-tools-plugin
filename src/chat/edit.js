@@ -3,11 +3,11 @@ import { PanelBody, TextControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 
-export default function Edit({ attributes, setAttributes }) {
+export default function Edit({ attributes, setAttributes, isSelected }) {
     const blockProps = useBlockProps();
     const { chatSrc, unitId } = attributes;
     
-    const defaultChatUrl = 'https://chat.livelyplant-e406dec0.eastus.azurecontainer.io';
+    const defaultChatUrl = 'https://chat.livelyplant-e406dec0.eastus.azurecontainerapps.io';
     
     // Get the current post title
     const postTitle = useSelect(select => {
@@ -29,7 +29,7 @@ export default function Edit({ attributes, setAttributes }) {
             return url.toString();
         } catch (e) {
             console.error('Error constructing URL:', e);
-            return defaultChatUrl;
+            return `${defaultChatUrl}?embed=true`;
         }
     };
 
@@ -63,19 +63,37 @@ export default function Edit({ attributes, setAttributes }) {
             </InspectorControls>
             <div {...blockProps}>
                 {chatSrc && (
-                    <div className="wp-block-eddolearning-chat-wrapper" style={{ position: 'relative', width: '100%', height: '600px' }}>
+                    <div className="wp-block-eddolearning-chat-wrapper" style={{ position: 'relative' }}>
                         <iframe 
                             src={iframeUrl}
+                            height="600"
                             style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
                                 width: '100%',
-                                height: '100%',
                                 border: 'none'
                             }}
                             title="Chat Interface"
                         ></iframe>
+                        {!isSelected && (
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    cursor: 'pointer',
+                                    background: 'rgba(0, 0, 0, 0.02)',
+                                    transition: 'background 0.2s ease'
+                                }}
+                                onMouseOver={(e) => {
+                                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.05)';
+                                }}
+                                onMouseOut={(e) => {
+                                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.02)';
+                                }}
+                                aria-label="Select chat block"
+                            />
+                        )}
                     </div>
                 )}
             </div>

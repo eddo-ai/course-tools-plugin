@@ -1,6 +1,6 @@
 {
     "name": "eddolearning-course-tools",
-    "version": "0.0.6",
+    "version": "0.0.9",
     "description": "WordPress blocks for Eddo Learning platform integration - chat and slides embedding for courses",
     "author": "The WordPress Contributors",
     "license": "GPL-2.0-or-later",
@@ -13,7 +13,9 @@
         "lint:js": "wp-scripts lint-js",
         "test": "wp-scripts test-unit-js",
         "test:e2e": "wp-scripts test-e2e",
-        "plugin-zip": "wp-scripts plugin-zip"
+        "plugin-zip": "wp-scripts plugin-zip",
+        "version:patch": "node scripts/bump-version.js patch",
+        "release": "pnpm version:patch && pnpm plugin-zip"
     },
     "devDependencies": {
         "@wordpress/scripts": "^30.5.1"

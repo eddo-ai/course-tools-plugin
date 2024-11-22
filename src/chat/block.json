@@ -1,14 +1,14 @@
 {
   "apiVersion": 2,
   "name": "eddolearning/chat",
-  "title": "Chat",
+  "title": "Eddo Learning Assistant Chat",
   "category": "common",
   "icon": "format-chat",
   "description": "Embed a chat interface",
   "attributes": {
     "chatSrc": {
       "type": "string",
-      "default": "https://chat.livelyplant-e406dec0.eastus.azurecontainer.io"
+      "default": "https://chat.livelyplant-e406dec0.eastus.azurecontainerapps.io"
     },
     "unitId": {
       "type": "string",
