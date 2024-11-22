@@ -63,6 +63,14 @@ jobs:
       - name: Generate plugin zip
         run: pnpm plugin-zip
 
+      - name: Verify zip contents
+        run: |
+          unzip -l eddolearning-course-tools.zip
+          if ! unzip -l eddolearning-course-tools.zip | grep -q "vendor/"; then
+            echo "Error: vendor directory not found in zip"
+            exit 1
+          fi
+
       - name: Commit changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"

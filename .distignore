@@ -11,4 +11,7 @@
 package.json
 package-lock.json
 pnpm-lock.yaml
-README.md 
+README.md
+composer.json
+# Do NOT ignore vendor directory
+!vendor/ 
