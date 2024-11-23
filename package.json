@@ -1,6 +1,6 @@
 {
     "name": "eddolearning-course-tools",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "description": "WordPress blocks for Eddo Learning platform integration - chat and slides embedding for courses",
     "author": "The WordPress Contributors",
     "license": "GPL-2.0-or-later",
