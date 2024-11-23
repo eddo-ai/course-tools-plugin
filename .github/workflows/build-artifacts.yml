@@ -57,24 +57,8 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Copy vendor files to build
-        run: |
-          cp -r vendor build/
-          echo "Build directory contents after copying vendor:"
-          ls -la build/
-          echo "Vendor directory in build:"
-          ls -la build/vendor/
-
       - name: Create plugin zip
         run: pnpm plugin-zip
-
-      - name: Verify zip contents
-        run: |
-          unzip -l eddolearning-course-tools.zip
-          if ! unzip -l eddolearning-course-tools.zip | grep -q "vendor/"; then
-            echo "Error: vendor directory not found in zip"
-            exit 1
-          fi
 
       - name: Commit changes
         run: |
