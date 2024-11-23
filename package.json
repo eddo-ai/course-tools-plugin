@@ -13,7 +13,7 @@
         "lint:js": "wp-scripts lint-js",
         "test": "wp-scripts test-unit-js",
         "test:e2e": "wp-scripts test-e2e",
-        "plugin-zip": "wp-scripts plugin-zip --include vendor/",
+        "plugin-zip": "wp-scripts plugin-zip",
         "version:patch": "node scripts/bump-version.js patch",
         "release": "pnpm version:patch && pnpm plugin-zip"
     },
