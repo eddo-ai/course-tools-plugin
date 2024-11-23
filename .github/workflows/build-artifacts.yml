@@ -54,14 +54,31 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-dev --optimize-autoloader
 
+      - name: Verify vendor directory
+        run: |
+          if [ ! -d "vendor" ]; then
+            echo "Error: vendor directory not found"
+            exit 1
+          fi
+          echo "Vendor directory contents:"
+          ls -la vendor/
+
       - name: Bump version
         run: pnpm version:patch
 
       - name: Build
         run: pnpm build
 
-      - name: Generate plugin zip
-        run: pnpm plugin-zip
+      - name: Copy vendor files to build
+        run: |
+          cp -r vendor build/
+          echo "Build directory contents after copying vendor:"
+          ls -la build/
+          echo "Vendor directory in build:"
+          ls -la build/vendor/
+
+      - name: Create plugin zip
+        run: wp-scripts plugin-zip --include vendor/
 
       - name: Verify zip contents
         run: |
