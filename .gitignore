@@ -1,5 +1,3 @@
 /build
 /node_modules
 !scripts/
-/vendor
-eddolearning-course-tools.zip
