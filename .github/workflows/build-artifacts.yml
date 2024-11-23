@@ -6,7 +6,6 @@ on:
       - main
     paths-ignore:
       - 'build/**'
-      - 'eddolearning-course-tools.zip'
 
 jobs:
   build:
@@ -64,8 +63,8 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add package.json eddolearning-course-tools.zip eddolearning-course-tools.php
-          git commit -m "chore: update build artifacts and bump version" || echo "No changes to commit"
+          git add package.json eddolearning-course-tools.php
+          git commit -m "chore: bump version" || echo "No changes to commit"
           git push
 
       - name: Create Release
