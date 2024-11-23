@@ -1,27 +1,27 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 3,
-  "name": "eddolearning/slides",
-  "title": "Eddo Learning Course Slides",
-  "category": "widgets",
-  "icon": "slides",
-  "description": "A block for embedding Eddo Learning course presentation slides. Supports Google Slides.",
-  "example": {},
-  "supports": {
-    "html": false
-  },
-  "textdomain": "eddolearning",
-  "editorScript": "file:./index.js",
-  "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css",
-  "attributes": {
-    "slidesSrc": {
-      "type": "string",
-      "default": ""
-    },
-    "startSlide": {
-      "type": "string",
-      "default": "1"
-    }
-  }
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "eddolearning/slides",
+	"title": "Eddo Learning Course Slides",
+	"category": "widgets",
+	"icon": "slides",
+	"description": "A block for embedding Eddo Learning course presentation slides. Supports Google Slides.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "eddolearning",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"slidesSrc": {
+			"type": "string",
+			"default": ""
+		},
+		"startSlide": {
+			"type": "string",
+			"default": "1"
+		}
+	}
 }

@@ -1,77 +1,77 @@
 name: Build Artifacts
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - 'build/**'
+    push:
+        branches:
+            - main
+        paths-ignore:
+            - 'build/**'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: false
-      
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+    build:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
 
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install dependencies
-        run: pnpm install
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.4'
+            - name: Install pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+                  run_install: false
 
-      - name: Bump version
-        run: pnpm version:patch
+            - name: Get pnpm store directory
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-      - name: Build
-        run: pnpm build
+            - uses: actions/cache@v3
+              name: Setup pnpm cache
+              with:
+                  path: ${{ env.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
 
-      - name: Create plugin zip
-        run: pnpm plugin-zip
+            - name: Install dependencies
+              run: pnpm install
 
-      - name: Commit changes
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add package.json eddolearning-course-tools.php
-          git commit -m "chore: bump version" || echo "No changes to commit"
-          git push
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '7.4'
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: eddolearning-course-tools.zip
-          tag_name: v${{ env.NEW_VERSION }}
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Bump version
+              run: pnpm version:patch
+
+            - name: Build
+              run: pnpm build
+
+            - name: Create plugin zip
+              run: pnpm plugin-zip
+
+            - name: Commit changes
+              run: |
+                  git config --local user.email "github-actions[bot]@users.noreply.github.com"
+                  git config --local user.name "github-actions[bot]"
+                  git add package.json eddolearning-course-tools.php
+                  git commit -m "chore: bump version" || echo "No changes to commit"
+                  git push
+
+            - name: Create Release
+              uses: softprops/action-gh-release@v1
+              with:
+                  files: eddolearning-course-tools.zip
+                  tag_name: v${{ env.NEW_VERSION }}
+                  generate_release_notes: true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
