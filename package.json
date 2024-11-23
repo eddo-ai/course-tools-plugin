@@ -13,11 +13,12 @@
         "lint:js": "wp-scripts lint-js",
         "test": "wp-scripts test-unit-js",
         "test:e2e": "wp-scripts test-e2e",
-        "plugin-zip": "wp-scripts plugin-zip",
+        "plugin-zip": "node scripts/create-plugin-zip.js",
         "version:patch": "node scripts/bump-version.js patch",
         "release": "pnpm version:patch && pnpm plugin-zip"
     },
     "devDependencies": {
-        "@wordpress/scripts": "^30.5.1"
+        "@wordpress/scripts": "^30.5.1",
+        "archiver": "^7.0.1"
     }
 }
