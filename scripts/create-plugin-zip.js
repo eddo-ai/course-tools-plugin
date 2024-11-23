@@ -2,13 +2,16 @@ const fs = require('fs');
 const path = require('path');
 const archiver = require('archiver');
 
+// Plugin name - used as the root directory in the ZIP
+const PLUGIN_NAME = 'eddolearning-course-tools';
+
 // Create output directory if it doesn't exist
 if (!fs.existsSync('dist')) {
     fs.mkdirSync('dist');
 }
 
 // Create a file to write our zip to
-const output = fs.createWriteStream('dist/eddolearning-course-tools.zip');
+const output = fs.createWriteStream(`dist/${PLUGIN_NAME}.zip`);
 const archive = archiver('zip', {
     zlib: { level: 9 } // Sets the compression level
 });
@@ -35,17 +38,32 @@ archive.on('error', function(err) {
 // Pipe archive data to the file
 archive.pipe(output);
 
+// Add files with the plugin directory as root
+const addFile = (filename) => {
+    archive.file(filename, { name: `${PLUGIN_NAME}/${filename}` });
+};
+
+const addDirectory = (dirname) => {
+    archive.directory(dirname, `${PLUGIN_NAME}/${dirname}`);
+};
+
 // Add the main plugin file
-archive.file('eddolearning-course-tools.php', { name: 'eddolearning-course-tools.php' });
+addFile('eddolearning-course-tools.php');
 
 // Add the build directory
-archive.directory('build/', 'build');
+addDirectory('build');
 
 // Add the vendor directory
-archive.directory('vendor/', 'vendor');
+addDirectory('vendor');
 
-// Add any other necessary files/directories
-archive.file('readme.txt', { name: 'readme.txt' });
+// Add any other necessary files
+addFile('readme.txt');
+
+// Add composer files
+addFile('composer.json');
+if (fs.existsSync('composer.lock')) {
+    addFile('composer.lock');
+}
 
 // Finalize the archive
 archive.finalize(); 
