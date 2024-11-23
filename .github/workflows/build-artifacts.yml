@@ -51,18 +51,6 @@ jobs:
         with:
           php-version: '7.4'
 
-      - name: Install Composer dependencies
-        run: composer install --no-dev --optimize-autoloader
-
-      - name: Verify vendor directory
-        run: |
-          if [ ! -d "vendor" ]; then
-            echo "Error: vendor directory not found"
-            exit 1
-          fi
-          echo "Vendor directory contents:"
-          ls -la vendor/
-
       - name: Bump version
         run: pnpm version:patch
 
