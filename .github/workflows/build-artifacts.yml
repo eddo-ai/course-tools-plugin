@@ -78,7 +78,7 @@ jobs:
           ls -la build/vendor/
 
       - name: Create plugin zip
-        run: wp-scripts plugin-zip
+        run: pnpm plugin-zip
 
       - name: Verify zip contents
         run: |
