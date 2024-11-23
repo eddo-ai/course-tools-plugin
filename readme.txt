@@ -14,9 +14,8 @@ Course tools and blocks for Eddo Learning platform integration.
 This plugin provides blocks for integrating Eddo Learning platform features into WordPress sites.
 
 == Installation ==
-1. Upload the plugin files to the `/wp-content/plugins/eddo-learning-course-tools` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress
-
-== Changelog ==
-= 1.0.0 =
-* Initial release
+1. Download the latest release of the plugin from the [GitHub releases page](https://github.com/eddolearning/eddolearning-course-tools/releases/latest)
+2. In your WordPress admin panel, navigate to Plugins > Add New
+3. Click the "Upload Plugin" button at the top of the page
+4. Choose the downloaded zip file and click "Install Now"
+5. After installation completes, click "Activate Plugin"
