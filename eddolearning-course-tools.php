@@ -19,39 +19,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Autoload dependencies
-$autoloader = __DIR__ . '/vendor/autoload.php';
-if (file_exists($autoloader)) {
-    require_once $autoloader;
-}
-
-// Initialize the update checker
-function initialize_eddolearning_updates() {
-    $autoloader = __DIR__ . '/vendor/autoload.php';
-    if (!file_exists($autoloader)) {
-        error_log('Eddo Learning: Autoloader not found');
-        return;
-    }
-
-    if (!class_exists('\YahnisElsts\PluginUpdateChecker\v5\PucFactory')) {
-        error_log('Eddo Learning: PucFactory class not found');
-        return;
-    }
-
-    $updateChecker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
-        'https://github.com/eddo-ai/wp-course-tools-plugin',
-        __FILE__,
-        'eddolearning-course-tools'
-    );
-
-    // Enable checking GitHub releases for downloadable assets
-    $updateChecker->getVcsApi()->enableReleaseAssets();
-    
-    // Set debug mode
-    $updateChecker->setDebugMode(true);
-}
-add_action('init', __NAMESPACE__ . '\\initialize_eddolearning_updates');
-
 /**
  * Registers the blocks and their assets.
  */
