@@ -34,6 +34,11 @@ function init()
         __DIR__ . '/build/slides'
     );
 
+    // Register the resources block
+    register_block_type(
+        __DIR__ . '/build/resources'
+    );
+
     // Register settings
     register_setting('chat_iframe_settings_group', 'chat_iframe_src_url', array(
         'type' => 'string',
@@ -125,3 +130,51 @@ function render_slides_block($attributes)
         esc_url($iframe_src)
     );
 }
+
+add_filter('block_editor_settings_all', function ($settings) {
+    $settings['customTemplatePaths'][] = plugin_dir_path(__FILE__) . 'block-templates';
+    return $settings;
+});
+
+// Register block templates
+function eddolearning_register_block_templates()
+{
+    $theme_dir = plugin_dir_path(__FILE__) . 'block-templates';
+
+    // Add the custom template directory to block template paths
+    add_filter('block_template_paths', function ($paths) use ($theme_dir) {
+        $paths[] = $theme_dir;
+        return $paths;
+    });
+}
+add_action('after_setup_theme', __NAMESPACE__ . '\\eddolearning_register_block_templates');
+
+function enqueue_block_assets()
+{
+    wp_enqueue_style(
+        'eddolearning-course-tools',
+        plugins_url('build/style.css', __FILE__),
+        array(),
+        filemtime(plugin_dir_path(__FILE__) . 'build/style.css')
+    );
+}
+add_action('enqueue_block_assets', __NAMESPACE__ . '\\enqueue_block_assets');
+
+function eddolearning_register_page_templates($post_templates)
+{
+    $post_templates['lesson-template.html'] = __('Lesson Template', 'eddolearning');
+    return $post_templates;
+}
+add_filter('theme_page_templates', __NAMESPACE__ . '\\eddolearning_register_page_templates');
+
+function eddolearning_load_block_template($template)
+{
+    $template_slug = get_page_template_slug();
+
+    if ($template_slug === 'lesson-template.html') {
+        return plugin_dir_path(__FILE__) . 'block-templates/lesson-template.html';
+    }
+
+    return $template;
+}
+add_filter('template_include', __NAMESPACE__ . '\\eddolearning_load_block_template');

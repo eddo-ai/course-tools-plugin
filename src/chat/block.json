@@ -1,30 +1,25 @@
 {
-	"apiVersion": 2,
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
 	"name": "eddolearning/chat",
-	"title": "Eddo Learning Assistant Chat",
-	"category": "common",
+	"title": "Eddo Chat",
+	"category": "widgets",
 	"icon": "format-chat",
 	"description": "Embed a chat interface",
+	"supports": {
+		"html": false,
+		"className": true
+	},
 	"attributes": {
 		"chatSrc": {
-			"type": "string",
-			"default": "https://chat.livelyplant-e406dec0.eastus.azurecontainerapps.io"
+			"type": "string"
 		},
 		"unitId": {
-			"type": "string",
-			"default": "7.1"
+			"type": "string"
 		}
-	},
-	"supports": {
-		"html": false
 	},
 	"textdomain": "eddolearning",
 	"editorScript": "file:./index.js",
-	"dependencies": [
-		"wp-blocks",
-		"wp-block-editor",
-		"wp-components",
-		"wp-data",
-		"wp-core-data"
-	]
+	"style": "file:../../build/style.css",
+	"editorStyle": "file:../../build/style.css"
 }

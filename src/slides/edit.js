@@ -82,7 +82,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						title="Presentation Slides"
 					/>
 				) : (
-					<p>Please enter a slides URL in the block settings.</p>
+					<p className="bg-blue-500">Please enter a slides URL in the block settings.</p>
 				) }
 			</div>
 		</>

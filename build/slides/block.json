@@ -11,9 +11,9 @@
     "html": false
   },
   "textdomain": "eddolearning",
-  "editorScript": "file:./index.js",
-  "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css",
+  "editorScript": "file:index.js",
+  "style": "file:../../build/style.css",
+  "editorStyle": "file:../../build/style.css",
   "attributes": {
     "slidesSrc": {
       "type": "string",

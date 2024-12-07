@@ -4,7 +4,9 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { store as preferencesStore } from '@wordpress/preferences';
 
 export default function Edit( { attributes, setAttributes, isSelected } ) {
-	const blockProps = useBlockProps();
+	const blockProps = useBlockProps( {
+		className: 'p-4 bg-blue-500 rounded-lg shadow-md'
+	} );
 	const { chatSrc, unitId } = attributes;
 
 	// Get the saved default URL from preferences
@@ -79,7 +81,8 @@ export default function Edit( { attributes, setAttributes, isSelected } ) {
 	console.log( 'Final iframe URL:', iframeUrl );
 
 	return (
-		<>
+		<div { ...blockProps }>
+			<h2 className="text-xl font-bold text-gray-800 mb-2">Chat Block</h2>
 			<InspectorControls>
 				<PanelBody title="Chat Settings" initialOpen={ true }>
 					<TextControl
@@ -98,47 +101,45 @@ export default function Edit( { attributes, setAttributes, isSelected } ) {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<div { ...blockProps }>
-				{ chatSrc && (
-					<div
-						className="wp-block-eddolearning-chat-wrapper"
-						style={ { position: 'relative' } }
-					>
-						<iframe
-							src={ iframeUrl }
-							height="600"
+			{ chatSrc && (
+				<div
+					className="wp-block-eddolearning-chat-wrapper"
+					style={ { position: 'relative' } }
+				>
+					<iframe
+						src={ iframeUrl }
+						height="600"
+						style={ {
+							width: '100%',
+							border: 'none',
+						} }
+						title="Chat Interface"
+					></iframe>
+					{ ! isSelected && (
+						<div
 							style={ {
-								width: '100%',
-								border: 'none',
+								position: 'absolute',
+								top: 0,
+								left: 0,
+								right: 0,
+								bottom: 0,
+								cursor: 'pointer',
+								background: 'rgba(0, 0, 0, 0.02)',
+								transition: 'background 0.2s ease',
 							} }
-							title="Chat Interface"
-						></iframe>
-						{ ! isSelected && (
-							<div
-								style={ {
-									position: 'absolute',
-									top: 0,
-									left: 0,
-									right: 0,
-									bottom: 0,
-									cursor: 'pointer',
-									background: 'rgba(0, 0, 0, 0.02)',
-									transition: 'background 0.2s ease',
-								} }
-								onMouseOver={ ( e ) => {
-									e.currentTarget.style.background =
-										'rgba(0, 0, 0, 0.05)';
-								} }
-								onMouseOut={ ( e ) => {
-									e.currentTarget.style.background =
-										'rgba(0, 0, 0, 0.02)';
-								} }
-								aria-label="Select chat block"
-							/>
-						) }
-					</div>
-				) }
-			</div>
-		</>
+							onMouseOver={ ( e ) => {
+								e.currentTarget.style.background =
+									'rgba(0, 0, 0, 0.05)';
+							} }
+							onMouseOut={ ( e ) => {
+								e.currentTarget.style.background =
+									'rgba(0, 0, 0, 0.02)';
+							} }
+							aria-label="Select chat block"
+						/>
+					) }
+				</div>
+			) }
+		</div>
 	);
 }

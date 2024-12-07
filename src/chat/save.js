@@ -2,7 +2,9 @@ import { useBlockProps } from '@wordpress/block-editor';
 
 export default function Save( { attributes } ) {
 	const { chatSrc, unitId } = attributes;
-	const blockProps = useBlockProps.save();
+	const blockProps = useBlockProps.save({
+		className: 'p-4 bg-blue-500 rounded-lg shadow-md'
+	});
 
 	const getFullUrl = ( baseUrl ) => {
 		try {

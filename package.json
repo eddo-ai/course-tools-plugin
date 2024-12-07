@@ -1,34 +1,38 @@
 {
-    "name": "eddolearning-course-tools",
-    "version": "0.0.20",
-    "description": "WordPress blocks for Eddo Learning platform integration - chat and slides embedding for courses",
-    "author": "The WordPress Contributors",
-    "license": "GPL-2.0-or-later",
-    "main": "build/index.js",
-    "scripts": {
-        "build": "wp-scripts build && postcss src/style.css -o build/style.css",
-        "start": "wp-scripts start && postcss src/style.css -o build/style.css --watch",
-        "format": "wp-scripts format",
-        "lint:css": "wp-scripts lint-style",
-        "lint:js": "wp-scripts lint-js",
-        "test": "wp-scripts test-unit-js",
-        "test:e2e": "wp-scripts test-e2e",
-        "plugin-zip": "wp-scripts plugin-zip",
-        "version:patch": "node scripts/bump-version.js patch",
-        "release": "pnpm version:patch && pnpm plugin-zip"
-    },
-    "devDependencies": {
-        "@wordpress/scripts": "^30.5.1",
-        "autoprefixer": "^10.4.20",
-        "postcss": "^8.4.49",
-        "postcss-cli": "^11.0.0",
-        "tailwindcss": "^3.4.15"
-    },
-    "pnpm": {
-        "overrides": {
-            "ws@>=8.0.0 <8.17.1": ">=8.17.1",
-            "cookie@<0.7.0": ">=0.7.0",
-            "cross-spawn@<6.0.6": ">=6.0.6"
-        }
-    }
+	"name": "eddolearning-course-tools",
+	"version": "0.0.19",
+	"description": "WordPress blocks for Eddo Learning platform integration - chat and slides embedding for courses",
+	"author": "The WordPress Contributors",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build && NODE_ENV=production postcss src/css/style.css -o build/style.css",
+		"start": "wp-scripts start & NODE_ENV=development TAILWIND_MODE=watch postcss src/css/style.css -o build/style.css --watch",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"test": "wp-scripts test-unit-js",
+		"test:e2e": "wp-scripts test-e2e",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"version:patch": "node scripts/bump-version.js patch",
+		"release": "pnpm version:patch && pnpm plugin-zip"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^30.5.1",
+		"autoprefixer": "^10.4.20",
+		"daisyui": "latest",
+		"postcss": "^8.4.49",
+		"postcss-cli": "^11.0.0",
+		"tailwindcss": "^3.4.15"
+	},
+	"pnpm": {
+		"overrides": {
+			"ws@>=8.0.0 <8.17.1": ">=8.17.1",
+			"cookie@<0.7.0": ">=0.7.0",
+			"cross-spawn@<6.0.6": ">=6.0.6"
+		}
+	},
+	"dependencies": {
+		"theme-change": "^2.5.0"
+	}
 }
